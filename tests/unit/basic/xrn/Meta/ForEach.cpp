@@ -7,13 +7,13 @@
 TEST_CASE("ForEach.run.Basic01")
 {
     int value{ 0 };
-    ::xrn::meta::ForEach<int, float>::run<[]<typename>(int& value){ ++value; }>(value);
+    ::xrn::meta::ForEach<int, float>::run<[]<typename>(int& v){ ++v; }>(value);
     REQUIRE(value == 2);
-    ::xrn::meta::ForEach<int, float, int>::run<[]<typename>(int& value){ ++value; }>(value);
+    ::xrn::meta::ForEach<int, float, int>::run<[]<typename>(int& v){ ++v; }>(value);
     REQUIRE(value == 5);
-    ::xrn::meta::ForEach<int>::run<[]<typename>(int& value){ ++value; }>(value);
+    ::xrn::meta::ForEach<int>::run<[]<typename>(int& v){ ++v; }>(value);
     REQUIRE(value == 6);
-    ::xrn::meta::ForEach<>::run<[]<typename>(int& value){ ++value; }>(value);
+    ::xrn::meta::ForEach<>::run<[]<typename>(int& v){ ++v; }>(value);
     REQUIRE(value == 6);
 }
 

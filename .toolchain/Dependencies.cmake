@@ -31,15 +31,15 @@ macro(download_dependencies library_versions)
     list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR})
 
     # download conan.cmake if does not exist
-    if (ENABLE_UPDATE_CONAN OR NOT EXISTS "${XRN_${XRN_BIN_NAME}_TOOLCHAIN_DETAILS_DIR}/conan.cmake")
+    if (ENABLE_UPDATE_CONAN OR NOT EXISTS "${XRN_TOOLCHAIN_DETAILS_DIR}/conan.cmake")
         message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
         file(
             DOWNLOAD "https://raw.githubusercontent.com/conan-io/cmake-conan/0.18.1/conan.cmake"
-            "${XRN_${XRN_BIN_NAME}_TOOLCHAIN_DETAILS_DIR}/conan.cmake"
+            "${XRN_TOOLCHAIN_DETAILS_DIR}/conan.cmake"
             TLS_VERIFY ON
         )
     endif()
-    include(${XRN_${XRN_BIN_NAME}_TOOLCHAIN_DETAILS_DIR}/conan.cmake)
+    include(${XRN_TOOLCHAIN_DETAILS_DIR}/conan.cmake)
 
     # add download remotes
     conan_config_set(NAME general.revisions_enabled VALUE 1)
@@ -54,4 +54,20 @@ macro(download_dependencies library_versions)
         BUILD missing
         SETTINGS ${settings}
     )
+
+    # includes
+    include(FetchContent)
+
+    foreach(library_name IN LISTS XRN_PERSONAL_DEPENDENCIES)
+        FetchContent_Declare(
+        library
+        GIT_REPOSITORY https://github.com/DiantArts/${library_name}
+        GIT_TAG        main
+        )
+        FetchContent_MakeAvailable(library)
+        include_directories(${library_SOURCE_DIR}/sources/)
+    endforeach()
+
+    include_directories(${XRN_SOURCES_DIR})
+    include_directories(${XRN_EXTERNAL_DIR})
 endmacro()

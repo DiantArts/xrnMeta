@@ -35,7 +35,7 @@ jobs:
 
     - name: Build
       run: |
-        ./.toolchain/compile -l --no-run
+        ./.toolchain/compile --clang++ --no-run
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2

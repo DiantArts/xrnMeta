@@ -135,7 +135,7 @@ clean() {
 }
 
 runTests() {
-    ctest --test-dir ${buildDir} -C ${buildType}
+    ctest --test-dir ${buildDir} -C ${buildType} --output-on-failure
 }
 
 runCoverage() {
