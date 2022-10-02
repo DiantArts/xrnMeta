@@ -25,8 +25,7 @@ TEST_CASE("Constraint.run.Basic01")
     REQUIRE(::xrn::meta::constraint::isPointer<int*>);
     REQUIRE(!::xrn::meta::constraint::isPointer<const int&>);
 
-    REQUIRE(!::xrn::meta::constraint::isContainer<::std::map<int, int>>);
-    using type = ::std::map<int, int>;
-    type{}.size();
-    type{}.data();
+    REQUIRE(::xrn::meta::constraint::isContiguousContainer<::std::vector<int>>);
+    REQUIRE(::xrn::meta::constraint::isContiguousContainer<::std::array<int, 1>>);
+    REQUIRE(!::xrn::meta::constraint::isContiguousContainer<::std::map<int, int>>);
 }
