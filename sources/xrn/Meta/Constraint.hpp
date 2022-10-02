@@ -101,7 +101,7 @@ template <
 template <
     typename T
 > concept isContiguousContainer = requires{
-    ::std::declval<T>().data() && ::std::declval<T>().size() && ::std::declval<T>().operator[](0);
+    ::std::declval<T>().data() && ::std::declval<T>().size() && ::std::declval<T>().at(0);
 };
 
 } // namespace xrn::meta::constraint
