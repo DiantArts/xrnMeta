@@ -51,6 +51,7 @@ macro(download_dependencies library_versions)
     conan_cmake_autodetect(settings)
     conan_cmake_install(
         PATH_OR_REFERENCE .
+        GENERATOR cmake
         BUILD missing
         SETTINGS ${settings}
     )
@@ -58,16 +59,18 @@ macro(download_dependencies library_versions)
     # includes
     include(FetchContent)
 
-    foreach(library_name IN LISTS XRN_PERSONAL_DEPENDENCIES)
-        FetchContent_Declare(
-        library
-        GIT_REPOSITORY https://github.com/DiantArts/${library_name}
-        GIT_TAG        main
-        )
-        FetchContent_MakeAvailable(library)
-        include_directories(${library_SOURCE_DIR}/sources/)
-    endforeach()
-
     include_directories(${XRN_SOURCES_DIR})
     include_directories(${XRN_EXTERNAL_DIR})
+
+    foreach(library_name IN LISTS XRN_PERSONAL_DEPENDENCIES)
+        MESSAGE(STATUS "Dowloading ${library_name}")
+        string(TOLOWER ${library_name} library_dirname)
+        FetchContent_Declare(
+            ${library_dirname}
+            GIT_REPOSITORY https://github.com/DiantArts/${library_name}
+            GIT_TAG        main
+        )
+        FetchContent_MakeAvailable(${library_dirname})
+        include_directories(${${library_dirname}_SOURCE_DIR}/sources/)
+    endforeach()
 endmacro()

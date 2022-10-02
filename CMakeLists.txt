@@ -6,15 +6,14 @@ cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 
 # project
 project(CMakeSandbox LANGUAGES CXX)
-set(XRN_BIN_NAME xrnMeta)
 set(XRN_CXX_VERSION 23)
 
 # dependencies
 set(XRN_PERSONAL_DEPENDENCIES) # include other xrn projects
-set(XRN_LIBS_REQUIRED)
+set(XRN_LIBRARIES_REQUIRED)
 set(XRN_LIBRARIES_REQUIREMENTS) # find_package
-set(XRN_LIBRARIES_DEPENDENCY) # target_link_libraries
-set(XRN_LIBRARIES_HEADERS) # include_directories(${library}_INCLUDE_DIRS)
+set(XRN_LIBRARIES_DEPENDENCIES) # target_link_libraries
+set(XRN_LIBRARIES_HEADERS) # include_directories()
 
 set(SPDLOG_BUILD_SHARED OFF)
 set(SPDLOG_FMT_EXTERNAL ON)
@@ -77,10 +76,6 @@ option(ENABLE_OUTPUT_DIR "Puts every ouput binaries in the '${XRN_OUTPUT_DIR}' d
 option(ENABLE_BINARY "Compile the main program as a binarry" ON)
 option(ENABLE_STATIC_LIBRARY "Compile the main program as a static library" OFF)
 option(ENABLE_SHARED_LIBRARY "Compile the main program as a shared library" OFF)
-
-
-
-
 
 
 
@@ -180,6 +175,11 @@ list(REMOVE_ITEM XRN_SOURCES "${XRN_MAIN}")
 # Options
 # =========================================================================
 
+get_filename_component(XRN_BIN_NAME ${CMAKE_CURRENT_LIST_DIR} NAME)
+string(REPLACE "-src" "-build" XRN_BIN_NAME ${XRN_BIN_NAME})
+
+set(XRN_${XRN_BIN_NAME}_DEPENDENCY_DIR ${XRN_BUILD_DIR}/_deps/${XRN_BIN_NAME})
+set(CMAKE_MODULE_PATH ${XRN_BUILD_DIR} ${XRN_${XRN_BIN_NAME}_DEPENDENCY_DIR})
 add_library(${XRN_BIN_NAME}_project_options INTERFACE)
 
 # basic useful actions controlled by the options/
@@ -238,7 +238,7 @@ run_static_analysis()
 
 # download dependencies
 include(${XRN_TOOLCHAIN_DIR}/Dependencies.cmake)
-download_dependencies("${XRN_LIBS_REQUIRED}") # isn't check whether the dowloaded failed or not
+download_dependencies("${XRN_LIBRARIES_REQUIRED}") # isn't check whether the dowloaded failed or not
 
 
 

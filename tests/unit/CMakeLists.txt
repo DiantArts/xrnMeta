@@ -62,7 +62,7 @@ target_link_libraries(
         ${XRN_BIN_NAME}_project_options
         ${XRN_BIN_NAME}_project_warnings
         Catch2::Catch2
-        ${XRN_LIBRARIES_DEPENDENCY}
+        ${XRN_LIBRARIES_DEPENDENCIES}
 )
 
 foreach(library IN LISTS XRN_LIBRARIES_HEADERS)
