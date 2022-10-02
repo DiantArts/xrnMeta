@@ -51,16 +51,22 @@ endif ()
 
 # Define binary
 add_library(${XRN_BIN_NAME}_test_configs OBJECT main.cpp ${XRN_SOURCES} ${XRN_FRAGMENT} ${XRN_VERTEX} ${XRN_HEADERS})
-target_link_libraries(
-    ${XRN_BIN_NAME}_test_configs
-    PRIVATE
-        ${XRN_BIN_NAME}_project_dependencies
-)
+
+if (ENABLE_COVERAGE)
+    if (CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
+        target_compile_options(${XRN_BIN_NAME}_test_configs PUBLIC -O0 -g3 -fprofile-instr-generate -fcoverage-mapping -fPIC --coverage -fno-inline)
+    elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        target_compile_options(${XRN_BIN_NAME}_test_configs PUBLIC -O0 -g3 -fprofile-arcs -ftest-coverage -fPIC --coverage -fno-inline -fno-inline-small-functions -fno-default-inline)
+    endif ()
+    target_link_libraries(${XRN_BIN_NAME}_test_configs PUBLIC --coverage)
+endif ()
+
 target_link_libraries(
     ${XRN_BIN_NAME}_test_configs
     PUBLIC
         ${XRN_BIN_NAME}_project_options
         ${XRN_BIN_NAME}_project_warnings
+        ${XRN_BIN_NAME}_project_dependencies
         Catch2::Catch2
         ${XRN_LIBRARIES_DEPENDENCIES}
 )

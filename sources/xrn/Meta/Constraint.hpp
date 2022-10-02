@@ -85,4 +85,12 @@ template <
 > concept isMutable = (::std::is_pointer_v<Type> && !::std::is_const_v<::std::remove_pointer_t<Type>>)
     || (::std::is_reference_v<Type> && !::std::is_const_v<::std::remove_reference_t<Type>>);
 
+///////////////////////////////////////////////////////////////////////////
+/// \brief Checks whether the Type given as template parameter is a pointer
+///
+///////////////////////////////////////////////////////////////////////////
+template <
+    typename Type
+> concept isPointer = ::std::is_pointer_v<Type>;
+
 } // namespace xrn::meta::constraint

@@ -142,13 +142,15 @@ runTests() {
 
 runCoverage() {
     if [[ ${CXX} == *"clang++"* ]]; then
-        gcovr -j ${parallel} -b --root ./ ./ -e .build/ -e tests/ -e externals/ --gcov-executable 'llvm-cov gcov'
-        gcovr -j ${parallel} --root ./ ./ -e .build/ -e tests/ -e externals/ --gcov-executable 'llvm-cov gcov'
-        gcovr --delete -j ${parallel} --root ./ ./ -e .build/ -e tests/ -e externals/ --xml-pretty --xml ./.build/coverage.xml --gcov-executable 'llvm-cov gcov'
+        echo "clang (${CXX})"
+        gcovr -j ${parallel} -b --root ./ ./ -e .build/ -e tests/ --gcov-executable 'llvm-cov gcov'
+        gcovr -j ${parallel} --root ./ ./ -e .build/ -e tests/ --gcov-executable 'llvm-cov gcov'
+        gcovr --delete -j ${parallel} --root ./ ./ -e .build/ -e tests/ --xml-pretty --xml ./.build/coverage.xml --gcov-executable 'llvm-cov gcov'
     else
-        gcovr -j ${parallel} -b --root ./ ./ -e .build/ -e tests/ -e externals/ --gcov-executable 'gcov'
-        gcovr -j ${parallel} --root ./ ./ -e .build/ -e tests/ -e externals/ --gcov-executable 'gcov'
-        gcovr --delete -j ${parallel} --root ./ ./ -e .build/ -e tests/ -e externals/ --xml-pretty --xml ./.build/coverage.xml --gcov-executable 'gcov'
+        echo "gcc (${CXX})"
+        gcovr -j ${parallel} -b --root ./ ./ -e .build/ -e tests/ --gcov-executable 'gcov'
+        gcovr -j ${parallel} --root ./ ./ -e .build/ -e tests/ --gcov-executable 'gcov'
+        gcovr --delete -j ${parallel} --root ./ ./ -e .build/ -e tests/ --xml-pretty --xml ./.build/coverage.xml --gcov-executable 'gcov'
     fi
 }
 
