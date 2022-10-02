@@ -218,6 +218,10 @@ add_library(${XRN_BIN_NAME}_project_dependencies INTERFACE)
 include(${XRN_TOOLCHAIN_DIR}/Shaders.cmake)
 compile_shaders(${XRN_BIN_NAME}_project_dependencies)
 
+# download dependencies
+include(${XRN_TOOLCHAIN_DIR}/Dependencies.cmake)
+download_dependencies(${XRN_BIN_NAME}_project_dependencies "${XRN_LIBRARIES_REQUIRED}")
+
 
 
 # =========================================================================
@@ -235,10 +239,6 @@ extract_documentation()
 # allow for static analysis options
 include(${XRN_TOOLCHAIN_DIR}/StaticAnalyzers.cmake) # possible to add more static analyzers in the file
 run_static_analysis()
-
-# download dependencies
-include(${XRN_TOOLCHAIN_DIR}/Dependencies.cmake)
-download_dependencies("${XRN_LIBRARIES_REQUIRED}") # isn't check whether the dowloaded failed or not
 
 
 

@@ -25,7 +25,7 @@ function(conan_config_set)
     endif()
 endfunction()
 
-macro(download_dependencies library_versions)
+macro(download_dependencies interface library_versions)
     # dependencies directory
     list(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
     list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR})
@@ -59,9 +59,6 @@ macro(download_dependencies library_versions)
     # includes
     include(FetchContent)
 
-    include_directories(${XRN_SOURCES_DIR})
-    include_directories(${XRN_EXTERNAL_DIR})
-
     foreach(library_name IN LISTS XRN_PERSONAL_DEPENDENCIES)
         MESSAGE(STATUS "Dowloading ${library_name}")
         string(TOLOWER ${library_name} library_dirname)
@@ -71,6 +68,8 @@ macro(download_dependencies library_versions)
             GIT_TAG        main
         )
         FetchContent_MakeAvailable(${library_dirname})
-        include_directories(${${library_dirname}_SOURCE_DIR}/sources/)
+        target_include_directories(${interface} INTERFACE ${${library_dirname}_SOURCE_DIR}/sources/)
     endforeach()
+
+    target_include_directories(${interface} INTERFACE ${XRN_SOURCES_DIR})
 endmacro()
