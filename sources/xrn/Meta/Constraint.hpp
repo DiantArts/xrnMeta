@@ -93,4 +93,14 @@ template <
     typename Type
 > concept isPointer = ::std::is_pointer_v<Type>;
 
+///////////////////////////////////////////////////////////////////////////
+/// \brief Checks whether the Type given as template parameter has .data()
+/// and .size() methods
+///
+///////////////////////////////////////////////////////////////////////////
+template <
+    typename T
+> concept isContiguousContainer =
+    requires{ ::std::declval<T>().data() && ::std::declval<T>().size(); };
+
 } // namespace xrn::meta::constraint
