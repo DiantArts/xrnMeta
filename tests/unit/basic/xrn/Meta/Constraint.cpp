@@ -29,3 +29,24 @@ TEST_CASE("Constraint.run.Basic01")
     REQUIRE(::xrn::meta::constraint::isContiguousContainer<::std::array<int, 1>>);
     REQUIRE(!::xrn::meta::constraint::isContiguousContainer<::std::map<int, int>>);
 }
+
+TEST_CASE("Constraint.run.isContainedBy")
+{
+    REQUIRE(::xrn::meta::constraint::isContainedBy<char, ::std::vector<char>>);
+    REQUIRE(::xrn::meta::constraint::isContainedBy<char, ::std::span<char>>);
+    REQUIRE(::xrn::meta::constraint::isContainedBy<int, ::std::vector<int>>);
+    REQUIRE(::xrn::meta::constraint::isContainedBy<int, ::std::span<int>>);
+    REQUIRE(!::xrn::meta::constraint::isContainedBy<char, ::std::vector<int>>);
+    REQUIRE(!::xrn::meta::constraint::isContainedBy<char, ::std::span<int>>);
+}
+
+TEST_CASE("Constraint.run.isMemoryStr")
+{
+    REQUIRE(::xrn::meta::constraint::isMemoryStr<char*>);
+    REQUIRE(::xrn::meta::constraint::isMemoryStr<::std::string>);
+    REQUIRE(::xrn::meta::constraint::isMemoryStr<::std::vector<char>>);
+    REQUIRE(::xrn::meta::constraint::isMemoryStr<::std::span<char>>);
+    REQUIRE(!::xrn::meta::constraint::isMemoryStr<int*>);
+    REQUIRE(!::xrn::meta::constraint::isMemoryStr<::std::vector<int>>);
+    REQUIRE(!::xrn::meta::constraint::isMemoryStr<::std::span<int>>);
+}

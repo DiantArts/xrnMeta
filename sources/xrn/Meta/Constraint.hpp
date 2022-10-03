@@ -1,5 +1,7 @@
 #pragma once
 
+#include <xrn/Meta/Detail/Constraint.hpp>
+
 namespace xrn::meta::constraint {
 
 ///////////////////////////////////////////////////////////////////////////
@@ -101,7 +103,39 @@ template <
 template <
     typename T
 > concept isContiguousContainer = requires{
-    ::std::declval<T>().data() && ::std::declval<T>().size() && ::std::declval<T>().at(0);
+    ::std::declval<T>().data() && ::std::declval<T>().size() && ::std::declval<T>().operator[](0);
 };
+
+///////////////////////////////////////////////////////////////////////////
+/// \brief Checks whether the Type given as template parameter is the type
+/// contained by the template class given as second template parameter
+///
+/// E.G.: ::std::vector<int> will contain ints.
+///
+///////////////////////////////////////////////////////////////////////////
+template <
+    typename Type1,
+    typename Type2
+> concept isContainedBy = ::xrn::meta::constraint::sameAs<
+        ::std::remove_cvref_t<::std::remove_pointer_t<Type1>>,
+        ::std::remove_cvref_t<::std::remove_pointer_t<
+            ::xrn::meta::constraint::detail::TemplateParameter_t<Type2>
+        >>
+    >;
+
+///////////////////////////////////////////////////////////////////////////
+/// \brief Checks whether the Type given as template parameter is a
+/// suitable str
+///
+/// suitable strs are ::xrn::meta::constraint::isContiguousContainer with
+/// chars or csstrings or ::std::string
+///
+///////////////////////////////////////////////////////////////////////////
+template <
+    typename T
+> concept isMemoryStr = (::xrn::meta::constraint::isContainedBy<char, T> &&
+    ::xrn::meta::constraint::isContiguousContainer<T>) ||
+    ::std::same_as<::std::remove_cvref_t<T>, char*> ||
+    ::std::same_as<::std::remove_cvref_t<T>, ::std::string>;
 
 } // namespace xrn::meta::constraint
