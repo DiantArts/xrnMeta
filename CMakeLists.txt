@@ -9,11 +9,11 @@ project(CMakeSandbox LANGUAGES CXX)
 set(XRN_CXX_VERSION 23)
 
 # dependencies
-set(XRN_PERSONAL_DEPENDENCIES xrnLog xrnMeta) # include other xrn projects
-set(XRN_LIBRARIES_REQUIRED spdlog/1.10.0)
-set(XRN_LIBRARIES_REQUIREMENTS spdlog fmt) # find_package
-set(XRN_LIBRARIES_DEPENDENCIES CONAN_PKG::spdlog CONAN_PKG::fmt) # target_link_libraries
-set(XRN_LIBRARIES_HEADERS spdlog fmt) # include_directories()
+set(XRN_PERSONAL_DEPENDENCIES) # include other xrn projects
+set(XRN_LIBRARIES_REQUIRED)
+set(XRN_LIBRARIES_REQUIREMENTS) # find_package
+set(XRN_LIBRARIES_DEPENDENCIES) # target_link_libraries
+set(XRN_LIBRARIES_HEADERS) # include_directories()
 
 set(SPDLOG_BUILD_SHARED OFF)
 set(SPDLOG_FMT_EXTERNAL ON)
@@ -105,13 +105,10 @@ default_setup_extra()
 # =========================================================================
 
 # sub projects
-add_subdirectory(${XRN_SOURCES_DIR})
-
-
-
-# =========================================================================
-# Tests
-# =========================================================================
-
-# tests
-enable_tests()
+if (ENABLE_TESTING)
+    if (NOT CMAKE_CURRENT_LIST_DIR MATCHES "-src/sources$")
+        enable_tests()
+    endif ()
+else ()
+    add_subdirectory(${XRN_SOURCES_DIR})
+endif ()

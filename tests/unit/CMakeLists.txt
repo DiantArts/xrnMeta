@@ -1,7 +1,3 @@
-# =========================================================================
-# extern
-# =========================================================================
-
 if (CMAKE_CURRENT_LIST_DIR MATCHES "-src/sources$")
     include(${XRN_BUILD_DIR}/_deps/${XRN_BIN_NAME}/conanbuildinfo.cmake)
 else ()
@@ -9,8 +5,9 @@ else ()
 endif ()
 conan_basic_setup(TARGETS)
 
+include(CMakeFindDependencyMacro)
 foreach(library IN LISTS XRN_LIBRARIES_REQUIREMENTS)
-    find_package(${library} REQUIRED)
+    find_dependency(${library} REQUIRED)
 endforeach()
 
 
