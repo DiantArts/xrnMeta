@@ -92,7 +92,9 @@ endforeach()
 
 file(GLOB_RECURSE XRN_TESTS_SRC ${XRN_BTESTS_DIR}/*.cpp ${XRN_BTESTS_DIR}/*.cxx)
 
-if (XRN_TESTS_SRC)
+if (XRN_TESTS_SRC AND NOT CMAKE_CURRENT_LIST_DIR MATCHES "-src/sources$")
+
+    message(WARNING ${XRN_TESTS_SRC})
 
     add_executable(${XRN_BTESTS_BIN} ${XRN_TESTS_SRC})
     target_link_libraries(${XRN_BTESTS_BIN}
@@ -125,7 +127,7 @@ endif ()
 
 file(GLOB_RECURSE XRN_CTESTS_SRC ${XRN_CTESTS_DIR}/*.cpp ${XRN_CTESTS_DIR}/*.cxx)
 
-if (XRN_CTESTS_SRC)
+if (XRN_CTESTS_SRC AND NOT CMAKE_CURRENT_LIST_DIR MATCHES "-src/sources$")
 
     # normal constexpr
     add_executable(${XRN_CTESTS_BIN} ${XRN_CTESTS_SRC})
