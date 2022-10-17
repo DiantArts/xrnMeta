@@ -4,7 +4,7 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
-TEST_CASE("Constraint.run.Basic01")
+TEST_CASE(" xrnMeta :: Constraint.run.Basic01")
 {
     REQUIRE(::xrn::meta::constraint::sameAs<int, int>);
     REQUIRE(!::xrn::meta::constraint::sameAs<int, float>);
@@ -30,7 +30,7 @@ TEST_CASE("Constraint.run.Basic01")
     REQUIRE(!::xrn::meta::constraint::isContiguousContainer<::std::map<int, int>>);
 }
 
-TEST_CASE("Constraint.run.isContainedBy")
+TEST_CASE(" xrnMeta :: Constraint.run.isContainedBy")
 {
     REQUIRE(::xrn::meta::constraint::isContainedBy<char, ::std::vector<char>>);
     REQUIRE(::xrn::meta::constraint::isContainedBy<char, ::std::span<char>>);
@@ -40,7 +40,7 @@ TEST_CASE("Constraint.run.isContainedBy")
     REQUIRE(!::xrn::meta::constraint::isContainedBy<char, ::std::span<int>>);
 }
 
-TEST_CASE("Constraint.run.isMemoryStr")
+TEST_CASE(" xrnMeta :: Constraint.run.isMemoryStr")
 {
     REQUIRE(::xrn::meta::constraint::isMemoryStr<char*>);
     REQUIRE(::xrn::meta::constraint::isMemoryStr<::std::string>);

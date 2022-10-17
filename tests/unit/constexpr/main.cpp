@@ -1,4 +1,4 @@
 #include <catch2/catch.hpp>
 
-TEST_CASE("blankTest")
+TEST_CASE(" xrnMeta :: blankTest")
 {}

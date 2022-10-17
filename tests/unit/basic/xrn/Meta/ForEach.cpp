@@ -4,7 +4,7 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
-TEST_CASE("ForEach.run.Basic01")
+TEST_CASE(" xrnMeta :: ForEach.run.Basic01")
 {
     int value{ 0 };
     ::xrn::meta::ForEach<int, float>::run<[]<typename>(int& v){ ++v; }>(value);
@@ -19,7 +19,7 @@ TEST_CASE("ForEach.run.Basic01")
 
 ///////////////////////////////////////////////////////////////////////////
 
-TEST_CASE("ForEach.compareAnd.Basic01")
+TEST_CASE(" xrnMeta :: ForEach.compareAnd.Basic01")
 {
     bool value;
 
@@ -41,7 +41,7 @@ TEST_CASE("ForEach.compareAnd.Basic01")
 
 ///////////////////////////////////////////////////////////////////////////
 
-TEST_CASE("ForEach.compareOr.Basic02")
+TEST_CASE(" xrnMeta :: ForEach.compareOr.Basic02")
 {
     bool value;
 
@@ -68,7 +68,7 @@ TEST_CASE("ForEach.compareOr.Basic02")
 
 ///////////////////////////////////////////////////////////////////////////
 
-TEST_CASE("ForEach.contains/hasType.Basic01")
+TEST_CASE(" xrnMeta :: ForEach.contains/hasType.Basic01")
 {
     REQUIRE((::xrn::meta::ForEach<int>::hasType<int>()));
     REQUIRE(!(::xrn::meta::ForEach<int>::hasType<float>()));
@@ -76,7 +76,7 @@ TEST_CASE("ForEach.contains/hasType.Basic01")
     REQUIRE(!(::xrn::meta::ForEach<int>::contains<float>()));
 }
 
-TEST_CASE("ForEach.contains/hasType.Basic02")
+TEST_CASE(" xrnMeta :: ForEach.contains/hasType.Basic02")
 {
     REQUIRE((::xrn::meta::ForEach<int, float>::hasType<int>()));
     REQUIRE((::xrn::meta::ForEach<int, float>::hasType<float>()));
@@ -88,12 +88,12 @@ TEST_CASE("ForEach.contains/hasType.Basic02")
 
 ///////////////////////////////////////////////////////////////////////////
 
-TEST_CASE("ForEach.getPosition.Basic01")
+TEST_CASE(" xrnMeta :: ForEach.getPosition.Basic01")
 {
     REQUIRE((::xrn::meta::ForEach<int>::getPosition<int>() == 0));
 }
 
-TEST_CASE("ForEach.getPosition.Basic02")
+TEST_CASE(" xrnMeta :: ForEach.getPosition.Basic02")
 {
     REQUIRE((::xrn::meta::ForEach<int, float>::getPosition<int>() == 0));
     REQUIRE((::xrn::meta::ForEach<int, float>::getPosition<float>() == 1));
@@ -101,7 +101,7 @@ TEST_CASE("ForEach.getPosition.Basic02")
     REQUIRE((::xrn::meta::ForEach<float, int>::getPosition<int>() == 1));
 }
 
-TEST_CASE("ForEach.getPosition.Basic03")
+TEST_CASE(" xrnMeta :: ForEach.getPosition.Basic03")
 {
     REQUIRE((::xrn::meta::ForEach<int, float, ::std::string>::getPosition<int>() == 0));
     REQUIRE((::xrn::meta::ForEach<int, float, ::std::string>::getPosition<float>() == 1));
