@@ -1,5 +1,7 @@
 #pragma once
 
+namespace xrn::meta::detail {
+
 ///////////////////////////////////////////////////////////////////////////
 /// \brief Fetch meta information about callables
 /// \ingroup meta
@@ -56,3 +58,5 @@ template <
     };
 
 };
+
+} // namespace xrn::meta::detail
