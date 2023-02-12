@@ -8,6 +8,8 @@ cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 project(CMakeSandbox LANGUAGES CXX)
 set(XRN_CXX_VERSION 23)
 
+set(XRN_ERROR_LIMIT 1)
+
 # dependencies
 set(XRN_PERSONAL_DEPENDENCIES) # include other xrn projects
 set(XRN_LIBRARIES_REQUIRED)
@@ -24,6 +26,7 @@ set(SPDLOG_BUILD_TESTS OFF)
 set(XRN_TOOLCHAIN_DIR "${CMAKE_SOURCE_DIR}/.toolchain")
 set(XRN_TOOLCHAIN_DETAILS_DIR "${XRN_TOOLCHAIN_DIR}/.details")
 set(XRN_SOURCES_DIR "sources")
+set(XRN_EXTERNALS_DIR "externals")
 set(XRN_TESTS_DIR "tests")
 set(XRN_OUTPUT_DIR "binaries")
 
