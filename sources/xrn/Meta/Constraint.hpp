@@ -1,6 +1,7 @@
 #pragma once
 
 #include <xrn/Meta/Detail/Constraint.hpp>
+#include <xrn/Meta/Function.hpp>
 
 namespace xrn::meta::constraint {
 
@@ -137,5 +138,19 @@ template <
     ::xrn::meta::constraint::isContiguousContainer<T>) ||
     ::std::same_as<::std::remove_cvref_t<T>, char*> ||
     ::std::same_as<::std::remove_cvref_t<T>, ::std::string>;
+
+///////////////////////////////////////////////////////////////////////////
+/// \brief Checks whether the callable passed as first template parameter
+/// has the other types given as template parammeter
+///
+///////////////////////////////////////////////////////////////////////////
+template <
+    typename CallableType
+    , typename... Types
+> concept doesCallableHasParameters =
+    ::std::is_same<
+        typename ::xrn::meta::template FunctionType<CallableType>::Arguments::Type
+        , ::std::tuple<Types...>
+    >::value;
 
 } // namespace xrn::meta::constraint
