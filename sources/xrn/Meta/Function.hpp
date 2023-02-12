@@ -2,7 +2,7 @@
 
 #include <xrn/Meta/Function.impl.hpp>
 
-namespace xrn::meta::detail {
+namespace xrn::meta {
 
 ///////////////////////////////////////////////////////////////////////////
 /// \brief Fetch meta information about callables
@@ -26,7 +26,7 @@ namespace xrn::meta::detail {
 template <
     typename RetType,
     typename... ArgTypes
-> struct InformationImpl<RetType(ArgTypes...)> {
+> struct FunctionType<RetType(ArgTypes...)> {
 
     ///////////////////////////////////////////////////////////////////////////
     /// \brief Contains the return type
@@ -61,4 +61,4 @@ template <
 
 };
 
-} // namespace xrn::meta::detail
+} // namespace xrn::meta

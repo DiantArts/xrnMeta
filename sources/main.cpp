@@ -12,7 +12,7 @@
 int main()
 {
     auto lambda{ [](int){} };
-    using Types = typename ::xrn::meta::template Function<lambda>::Arguments::Type;
+    using Types = typename ::xrn::meta::template FunctionType<decltype(lambda)>::Arguments::Type;
     bool value{ ::std::is_same<Types, ::std::tuple<int>>::value };
     ::std::cout << value << ::std::endl;
 

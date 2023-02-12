@@ -1,6 +1,6 @@
 #pragma once
 
-namespace xrn::meta::detail {
+namespace xrn::meta {
 
 ///////////////////////////////////////////////////////////////////////////
 /// \brief Contains information about the function
@@ -8,8 +8,8 @@ namespace xrn::meta::detail {
 ///////////////////////////////////////////////////////////////////////////
 template <
     typename func
-> struct InformationImpl
-    : public ::xrn::meta::detail::InformationImpl<decltype(&func::operator())>
+> struct FunctionType
+    : public ::xrn::meta::FunctionType<decltype(&func::operator())>
 {};
 
 ///////////////////////////////////////////////////////////////////////////
@@ -19,8 +19,8 @@ template <
 template <
     typename RetType,
     typename... ArgTypes
-> struct InformationImpl<RetType(*)(ArgTypes...)>
-    : public ::xrn::meta::detail::InformationImpl<RetType(ArgTypes...)>
+> struct FunctionType<RetType(*)(ArgTypes...)>
+    : public ::xrn::meta::FunctionType<RetType(ArgTypes...)>
 {};
 
 ///////////////////////////////////////////////////////////////////////////
@@ -30,8 +30,8 @@ template <
 template <
     typename RetType,
     typename... ArgTypes
-> struct InformationImpl<::std::function<RetType(ArgTypes...)>>
-    : public ::xrn::meta::detail::InformationImpl<RetType(ArgTypes...)>
+> struct FunctionType<::std::function<RetType(ArgTypes...)>>
+    : public ::xrn::meta::FunctionType<RetType(ArgTypes...)>
 {};
 
 ///////////////////////////////////////////////////////////////////////////
@@ -42,18 +42,18 @@ template <
     typename ClassType,
     typename RetType,
     typename... ArgTypes
->struct InformationImpl<RetType(ClassType::*)(ArgTypes...) const>
-    : public ::xrn::meta::detail::InformationImpl<RetType(ArgTypes...)>
+>struct FunctionType<RetType(ClassType::*)(ArgTypes...) const>
+    : public ::xrn::meta::FunctionType<RetType(ArgTypes...)>
 {};
 
-} // namespace xrn::meta::detail
+} // namespace xrn::meta
 
 namespace xrn::meta {
 
 template <
     auto func
 > struct Function
-    : public ::xrn::meta::detail::InformationImpl<decltype(func)>
+    : public ::xrn::meta::FunctionType<decltype(func)>
 {};
 
 } // namespace xrn::meta
