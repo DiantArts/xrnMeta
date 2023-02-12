@@ -6,6 +6,7 @@
 #include <xrn/Meta/ForEach.hpp>
 #include <xrn/Meta/UniqueTypes.hpp>
 #include <xrn/Meta/Constraint.hpp>
+#include <xrn/Meta/Function.hpp>
 
 
 

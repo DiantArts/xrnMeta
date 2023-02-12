@@ -9,8 +9,12 @@
 #include <xrn/Meta.hpp>
 
 ///////////////////////////////////////////////////////////////////////////
-auto main()
-    -> int
+int main()
 {
+    auto lambda{ [](int){} };
+    using Types = typename ::xrn::meta::template Function<lambda>::Arguments::Type;
+    bool value{ ::std::is_same<Types, ::std::tuple<int>>::value };
+    ::std::cout << value << ::std::endl;
+
     return EXIT_SUCCESS;
 }
