@@ -8,13 +8,19 @@
 ///////////////////////////////////////////////////////////////////////////
 #include <xrn/Meta.hpp>
 
+void func(
+    ::xrn::meta::constraint::doesCallableHasParameters<> auto lambda
+)
+{
+    ::std::cout << "true" << ::std::endl;
+    func(lambda);
+}
+
 ///////////////////////////////////////////////////////////////////////////
 int main()
 {
-    auto lambda{ [](int){} };
-    using Types = typename ::xrn::meta::template FunctionType<decltype(lambda)>::Arguments::Type;
-    bool value{ ::std::is_same<Types, ::std::tuple<int>>::value };
-    ::std::cout << value << ::std::endl;
+    auto lambda{ [](){} };
+    func(lambda);
 
     return EXIT_SUCCESS;
 }
